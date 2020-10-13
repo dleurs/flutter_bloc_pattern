@@ -2,6 +2,9 @@
 
 A new Flutter project.
 
+
+API key publicly available, bad practice
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
