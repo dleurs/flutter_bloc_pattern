@@ -14,5 +14,5 @@ Setup slow internet :
 - https://developer.apple.com/download/more/?=for%20Xcode<br/>
 - Download Additional_Tools_for_Xcode then install Hardware > Network Link Conditioner.prefPane
 
-![](assets/network-link-1.gif)
-![](assets/network-link-2.gif)
+![](assets/network-link-1.png)
+![](assets/network-link-2.png)
