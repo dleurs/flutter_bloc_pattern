@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
-import '../models/item_model.dart';
-import '../blocs/movies_bloc.dart';
 
 class MovieList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+        itemCount: 10,
+        gridDelegate:
+            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (BuildContext context, int index) {
+          return Image.network(
+            'https://via.placeholder.com/600/170b0e',
+            fit: BoxFit.cover,
+          );
+        });
+  }
+}
+
+/* class MovieList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bloc.fetchAllMovies();
@@ -31,4 +45,4 @@ class MovieList extends StatelessWidget {
           );
         });
   }
-}
+} */

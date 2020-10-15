@@ -4,6 +4,8 @@ API and project from : https://www.themoviedb.org/settings/api?language=fr
 
 Documentation on the API : https://developers.themoviedb.org/3/movies/get-popular-movies
 
+Other good place to test API, JSONPlaceHolder : http://jsonplaceholder.typicode.com/
+
 Guide for using the API : https://medium.com/flutterpub/architecting-your-flutter-project-bd04e144a8f1
 
 BLoC infinite list : https://bloclibrary.dev/#/flutterinfinitelisttutorial
