@@ -9,10 +9,20 @@ Guide for using the API : https://medium.com/flutterpub/architecting-your-flutte
 BLoC infinite list : https://bloclibrary.dev/#/flutterinfinitelisttutorial
 
 
+## Without any optimisation of the structure of the code
+
+![](3g-no-optimisation.gif)
+
+
+![](3g-no-optimisation-2.gif)
+
+
 Setup slow internet : 
 - https://medium.com/macoclock/ios-simulator-simulates-slow-network-connection-615f910a2f43<br/>
 - https://developer.apple.com/download/more/?=for%20Xcode<br/>
 - Download Additional_Tools_for_Xcode then install Hardware > Network Link Conditioner.prefPane
 
 ![](assets/network-link-1.png)
+
+
 ![](assets/network-link-2.png)
