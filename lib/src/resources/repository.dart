@@ -5,5 +5,5 @@ import '../models/item_model.dart';
 class Repository {
   final moviesApiProvider = MovieApiProvider();
 
-  Future<ItemModel> fetchAllMovies() => moviesApiProvider.fetchMovieList();
+  Future<Movies> fetchAllMovies() => moviesApiProvider.fetchAllMovies();
 }

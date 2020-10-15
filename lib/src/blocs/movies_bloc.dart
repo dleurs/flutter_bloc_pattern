@@ -4,12 +4,12 @@ import '../models/item_model.dart';
 
 class MoviesBloc {
   final _repository = Repository();
-  final _moviesFetcher = PublishSubject<ItemModel>();
+  final _moviesFetcher = PublishSubject<Movies>();
 
-  Stream<ItemModel> get allMovies => _moviesFetcher.stream;
+  Stream<Movies> get allMovies => _moviesFetcher.stream;
 
   fetchAllMovies() async {
-    ItemModel itemModel = await _repository.fetchAllMovies();
+    Movies itemModel = await _repository.fetchAllMovies();
     _moviesFetcher.sink.add(itemModel);
   }
 
