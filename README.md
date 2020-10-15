@@ -8,15 +8,6 @@ Guide for using the API : https://medium.com/flutterpub/architecting-your-flutte
 
 BLoC infinite list : https://bloclibrary.dev/#/flutterinfinitelisttutorial
 
-
-## Without any optimisation of the structure of the code
-
-![](3g-no-optimisation.gif)
-
-
-![](3g-no-optimisation-2.gif)
-
-
 Setup slow internet : 
 - https://medium.com/macoclock/ios-simulator-simulates-slow-network-connection-615f910a2f43<br/>
 - https://developer.apple.com/download/more/?=for%20Xcode<br/>
@@ -26,3 +17,10 @@ Setup slow internet :
 
 
 ![](assets/network-link-2.png)
+
+## Without any optimisation of the structure of the code
+
+![](3g-no-optimisation.gif)
+
+
+![](3g-no-optimisation-2.gif)
