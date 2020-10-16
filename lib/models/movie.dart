@@ -5,7 +5,7 @@ class Movie {
   String posterPath;
   Image image;
 
-  Movie({@required this.title, @required this.posterPath});
+  //Movie({@required this.title, @required this.posterPath});
 
   Movie.fromJson(jsonResult) {
     title = jsonResult['title'];

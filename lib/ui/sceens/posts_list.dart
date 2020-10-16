@@ -1,6 +1,7 @@
 import 'package:bloc_pattern/bloc/postPictures/postpictures_bloc.dart';
 import 'package:bloc_pattern/ui/components/bottom_loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PostsList extends StatefulWidget {
@@ -36,8 +37,8 @@ class _PostsListState extends State<PostsList> {
           }
           return GridView.builder(
             itemCount: state.hasReachedMax
-                ? state.movies.length
-                : state.movies.length + 1,
+                ? state.movies.length + 1
+                : state.movies.length + 2,
             controller: _scrollController,
             gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2),
@@ -50,17 +51,24 @@ class _PostsListState extends State<PostsList> {
                       loadingBuilder: (context, child, loadingProgress) {
                       return loadingProgress == null
                           ? child
-                          : Column(
-                              children: [
-                                Text(state.movies[index].title),
-                                LinearProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes
-                                      : null,
-                                ),
-                              ],
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Text(state.movies[index].title,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      )),
+                                  LinearProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes
+                                        : null,
+                                  ),
+                                ],
+                              ),
                             );
                     });
             },

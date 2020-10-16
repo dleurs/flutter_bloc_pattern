@@ -21,7 +21,6 @@ class PostpicturesBloc extends Bloc<PostpicturesEvent, PostpicturesState> {
   @override
   Stream<PostpicturesState> mapEventToState(PostpicturesEvent event) async* {
     if (event is PostpicturesFetched) {
-      print(state);
       yield await _mapPostFetchedToState(state);
     }
   }
@@ -33,18 +32,22 @@ class PostpicturesBloc extends Bloc<PostpicturesEvent, PostpicturesState> {
       if (state is PostpicturesInitial) {
         final movies = await _fetchMoviesOfAPage(page: 1);
         return PostpicturesSuccess(
-            movies: movies, hasReachedMax: false, page: 1);
+            // TODO: Break point here
+            movies: movies,
+            hasReachedMax: false,
+            page: 1);
       }
-      final movies = await _fetchMoviesOfAPage(page: state.page + 1);
+      int newPage = state.page + 1;
+      final movies = await _fetchMoviesOfAPage(page: newPage);
       return movies.isEmpty
           ? PostpicturesSuccess(
               movies: List.of(state.movies)..addAll(movies),
-              hasReachedMax: false,
-              page: state.page + 1)
+              hasReachedMax: true,
+              page: newPage)
           : PostpicturesSuccess(
               movies: List.of(state.movies)..addAll(movies),
               hasReachedMax: false,
-              page: state.page + 1);
+              page: newPage);
     } on Exception {
       return PostpicturesFailure(
           movies: state.movies,
