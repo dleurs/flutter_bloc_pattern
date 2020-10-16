@@ -23,6 +23,3 @@ Setup slow internet :
 ## Without any optimisation of the structure of the code
 
 ![](assets/3g-no-optimisation.gif)
-
-
-![](assets/3g-no-optimisation-2.gif)

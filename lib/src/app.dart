@@ -1,16 +1,17 @@
+import 'package:bloc_pattern/bloc/postPictures/postpictures_bloc.dart';
 import 'package:flutter/material.dart';
-import 'ui/movie_list.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 
-class App extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData.dark(),
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('200 Most Popular Movies'),
+class App extends MaterialApp {
+  App()
+      : super(
+            home: Scaffold(
+          appBar: AppBar(title: const Text('Posts')),
+          body: BlocProvider(
+            create: (_) => PostpicturesBloc(httpClient: http.Client())
+              ..add(PostpicturesFetched()),
+            child: PostsList(),
           ),
-          body: MovieList(),
         ));
-  }
 }
