@@ -8,7 +8,7 @@ Other good place to test API, JSONPlaceHolder : http://jsonplaceholder.typicode.
 
 Guide for using the API : https://medium.com/flutterpub/architecting-your-flutter-project-bd04e144a8f1
 
-BLoC infinite list : https://bloclibrary.dev/#/flutterinfinitelisttutorial
+
 
 Setup slow internet : 
 - https://medium.com/macoclock/ios-simulator-simulates-slow-network-connection-615f910a2f43<br/>
@@ -23,3 +23,12 @@ Setup slow internet :
 ## Without any optimisation of the structure of the code
 
 ![](assets/3g-no-optimisation.gif)
+
+
+## By tacking FlutterBlocInfiniteList with image db
+BLoC infinite list : https://bloclibrary.dev/#/flutterinfinitelisttutorial
+
+
+Intermediary result. commit 04bbb800 on branch bloc_api_optimised_code
+
+![](assets/intermediary-result.gif)
