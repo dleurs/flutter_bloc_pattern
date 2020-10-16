@@ -1,5 +1,10 @@
 # BLoC in Flutter to get images from IP and pagination
 
+Biggest challenge of this project :
+- Adapt to the API, is there pages (20 items by API calls) or can you fix the limit in the HTTP call
+- Two separate flow of async, get the name and urlImagePath of the picture, and then download the picture
+- Download the picture with Image.network or NetworkAssetBundle(Uri.parse(imgUrl)).load("")).buffer.asUint8List() and then Image.memory
+
 API and project from : https://www.themoviedb.org/settings/api?language=fr
 
 Documentation on the API : https://developers.themoviedb.org/3/movies/get-popular-movies
