@@ -45,32 +45,36 @@ class _PostsListState extends State<PostsList> {
             itemBuilder: (BuildContext context, int index) {
               return index >= state.movies.length
                   ? BottomLoader()
-                  : Image.network(
-                      'https://image.tmdb.org/t/p/w185${state.movies[index].posterPath}',
+                  : //Image.network(
+                  //  'https://image.tmdb.org/t/p/w185${state.movies[index].posterPath}',
+                  Image.memory(
+                      state.movies[index].image,
                       fit: BoxFit.cover,
-                      loadingBuilder: (context, child, loadingProgress) {
-                      return loadingProgress == null
-                          ? child
-                          : Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(state.movies[index].title,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                      )),
-                                  LinearProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes
-                                        : null,
-                                  ),
-                                ],
-                              ),
-                            );
-                    });
+                      /*  loadingBuilder: (context, child, loadingProgress) {
+                        return loadingProgress == null
+                            ? child
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(state.movies[index].title,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                        )),
+                                    LinearProgressIndicator(
+                                      value: loadingProgress
+                                                  .expectedTotalBytes !=
+                                              null
+                                          ? loadingProgress
+                                                  .cumulativeBytesLoaded /
+                                              loadingProgress.expectedTotalBytes
+                                          : null,
+                                    ),
+                                  ],
+                                ),
+                              );
+                      }, */
+                    );
             },
           );
 

@@ -64,9 +64,12 @@ class PostpicturesBloc extends Bloc<PostpicturesEvent, PostpicturesState> {
     if (response.statusCode == 200) {
       // TODO: Check this step
       final data = json.decode(response.body)["results"] as List;
-      return data.map((dynamic rawPost) {
-        return Movie.fromJson(rawPost);
-      }).toList();
+      List<Movie> movies = <Movie>[];
+      for (int i = 0; i < data.length; i++) {
+        Movie movie = await Movie.loadImage(Movie.fromJson(data[i]));
+        movies.add(movie);
+      }
+      return movies;
     }
     throw Exception('Error fetching posts');
   }
