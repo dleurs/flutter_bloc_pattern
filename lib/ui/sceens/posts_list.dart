@@ -50,45 +50,9 @@ class _PostsListState extends State<PostsList> {
                   Image.memory(
                       state.movies[index].image,
                       fit: BoxFit.cover,
-                      /*  loadingBuilder: (context, child, loadingProgress) {
-                        return loadingProgress == null
-                            ? child
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Text(state.movies[index].title,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                        )),
-                                    LinearProgressIndicator(
-                                      value: loadingProgress
-                                                  .expectedTotalBytes !=
-                                              null
-                                          ? loadingProgress
-                                                  .cumulativeBytesLoaded /
-                                              loadingProgress.expectedTotalBytes
-                                          : null,
-                                    ),
-                                  ],
-                                ),
-                              );
-                      }, */
                     );
             },
           );
-
-/*           return ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return index >= state.movies.length
-                  ? BottomLoader()
-                  : MovieListItem(movie: state.movies[index]);
-            },
-            itemCount: state.hasReachedMax
-                ? state.movies.length
-                : state.movies.length + 1,
-            controller: _scrollController,
-          ); */
         } else {
           return const Center(child: CircularProgressIndicator());
         }
@@ -109,6 +73,7 @@ class _PostsListState extends State<PostsList> {
   bool get _isBottom {
     if (!_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
+    final double height = MediaQuery.of(context).size.height;
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
   }

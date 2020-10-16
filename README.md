@@ -1,9 +1,16 @@
 # BLoC in Flutter to get images from IP and pagination
 
 Biggest challenge of this project :
+- Pagination mechanism
 - Adapt to the API, is there pages (20 items by API calls) or can you fix the limit in the HTTP call
 - Two separate flow of async, get the name and urlImagePath of the picture, and then download the picture
 - Download the picture with Image.network or NetworkAssetBundle(Uri.parse(imgUrl)).load("")).buffer.asUint8List() and then Image.memory
+- How to load new pages ? by button ? scolling down ? if scrolling, check that the user can scroll down (only one item in the first page, cannot scroll), or he will be stuck
+- StreamBuilder ? or BlocBuilder / BlocConsumer ?
+
+![](assets/intermediary-result-3.gif)
+
+Bloc Documentation : https://bloclibrary.dev/#/flutterbloccoreconcepts
 
 API and project from : https://www.themoviedb.org/settings/api?language=fr
 
@@ -42,3 +49,6 @@ On 3G<br/>
 On 3G<br/>
 Loading 20 pictures for every pages takes too much times. Nearly 20 seconds for the first page<br/>
 ![](assets/intermediary-result-2.gif)
+
+## Problem when cannot scroll down
+![](assets/intermediary-result-4-problem.gif)

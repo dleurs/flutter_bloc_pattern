@@ -65,7 +65,9 @@ class PostpicturesBloc extends Bloc<PostpicturesEvent, PostpicturesState> {
       // TODO: Check this step
       final data = json.decode(response.body)["results"] as List;
       List<Movie> movies = <Movie>[];
-      for (int i = 0; i < data.length; i++) {
+      for (int i = 0; i < 2; i++) {
+        //for (int i = 0; i < data.length; i++) {
+        // TODO: Reduced 20 to 4, but you don't have all movies !! Just thing themoviedb bad API
         Movie movie = await Movie.loadImage(Movie.fromJson(data[i]));
         movies.add(movie);
       }
