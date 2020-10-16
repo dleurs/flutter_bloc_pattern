@@ -33,7 +33,7 @@ BLoC infinite list : https://bloclibrary.dev/#/flutterinfinitelisttutorial
 On 3G<br/>
 ![](assets/intermediary-result.gif)
 
-## Intermediary result 2. commit 04bbb800 on branch bloc_api_optimised_code
+## Intermediary result 2. commit 92e49a1e47 on branch bloc_api_optimised_code
 On 3G<br/>
 Loading 20 pictures for every pages takes too much times. Nearly 20 seconds for the first page<br/>
 ![](assets/intermediary-result-2.gif)
