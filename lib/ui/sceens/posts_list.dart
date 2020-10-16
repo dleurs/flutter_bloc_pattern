@@ -1,7 +1,7 @@
 import 'package:bloc_pattern/bloc/postPictures/postpictures_bloc.dart';
+import 'package:bloc_pattern/ui/components/bottom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_infinite_list/posts/posts.dart';
 
 class PostsList extends StatefulWidget {
   @override
@@ -10,13 +10,13 @@ class PostsList extends StatefulWidget {
 
 class _PostsListState extends State<PostsList> {
   final _scrollController = ScrollController();
-  PostpicturesBloc _PostpicturesBloc;
+  PostpicturesBloc _postpicturesBloc;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    _PostpicturesBloc = context.bloc<PostpicturesBloc>();
+    _postpicturesBloc = context.bloc<PostpicturesBloc>();
   }
 
   @override
@@ -24,31 +24,61 @@ class _PostsListState extends State<PostsList> {
     return BlocConsumer<PostpicturesBloc, PostpicturesState>(
       listener: (context, state) {
         if (!state.hasReachedMax && _isBottom) {
-          _PostpicturesBloc.add(PostpicturesFetched());
+          _postpicturesBloc.add(PostpicturesFetched());
         }
       },
       builder: (context, state) {
         if (state is PostpicturesFailure) {
-return const Center(child: Text('failed to fetch posts'));
-        }
-            
-          case PostStatus.success:
-            if (state.posts.isEmpty) {
-              return const Center(child: Text('no posts'));
-            }
-            return ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return index >= state.posts.length
-                    ? BottomLoader()
-                    : PostListItem(post: state.posts[index]);
-              },
-              itemCount: state.hasReachedMax
-                  ? state.posts.length
-                  : state.posts.length + 1,
-              controller: _scrollController,
-            );
-          default:
-            return const Center(child: CircularProgressIndicator());
+          return const Center(child: Text('failed to fetch posts'));
+        } else if (state is PostpicturesSuccess) {
+          if (state.movies.isEmpty) {
+            return const Center(child: Text('no posts'));
+          }
+          return GridView.builder(
+            itemCount: state.hasReachedMax
+                ? state.movies.length
+                : state.movies.length + 1,
+            controller: _scrollController,
+            gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2),
+            itemBuilder: (BuildContext context, int index) {
+              return index >= state.movies.length
+                  ? BottomLoader()
+                  : Image.network(
+                      'https://image.tmdb.org/t/p/w185${state.movies[index].posterPath}',
+                      fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                      return loadingProgress == null
+                          ? child
+                          : Column(
+                              children: [
+                                Text(state.movies[index].title),
+                                LinearProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes
+                                      : null,
+                                ),
+                              ],
+                            );
+                    });
+            },
+          );
+
+/*           return ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              return index >= state.movies.length
+                  ? BottomLoader()
+                  : MovieListItem(movie: state.movies[index]);
+            },
+            itemCount: state.hasReachedMax
+                ? state.movies.length
+                : state.movies.length + 1,
+            controller: _scrollController,
+          ); */
+        } else {
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );
@@ -61,7 +91,7 @@ return const Center(child: Text('failed to fetch posts'));
   }
 
   void _onScroll() {
-    if (_isBottom) _PostpicturesBloc.add(PostFetched());
+    if (_isBottom) _postpicturesBloc.add(PostpicturesFetched());
   }
 
   bool get _isBottom {

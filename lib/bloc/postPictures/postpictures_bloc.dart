@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bloc_pattern/models/movie.dart';
-import 'package:bloc_pattern/src/ui/movie_list.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -22,6 +21,7 @@ class PostpicturesBloc extends Bloc<PostpicturesEvent, PostpicturesState> {
   @override
   Stream<PostpicturesState> mapEventToState(PostpicturesEvent event) async* {
     if (event is PostpicturesFetched) {
+      print(state);
       yield await _mapPostFetchedToState(state);
     }
   }
@@ -31,17 +31,20 @@ class PostpicturesBloc extends Bloc<PostpicturesEvent, PostpicturesState> {
     if (state.hasReachedMax) return state;
     try {
       if (state is PostpicturesInitial) {
-        final movies = await _fetchPosts(page: 1);
-        return PostpicturesSuccess(movies: movies, hasReachedMax: false);
+        final movies = await _fetchMoviesOfAPage(page: 1);
+        return PostpicturesSuccess(
+            movies: movies, hasReachedMax: false, page: 1);
       }
-      final movies = await _fetchPosts(page: state.page + 1);
+      final movies = await _fetchMoviesOfAPage(page: state.page + 1);
       return movies.isEmpty
           ? PostpicturesSuccess(
               movies: List.of(state.movies)..addAll(movies),
-              hasReachedMax: false)
+              hasReachedMax: false,
+              page: state.page + 1)
           : PostpicturesSuccess(
               movies: List.of(state.movies)..addAll(movies),
-              hasReachedMax: false);
+              hasReachedMax: false,
+              page: state.page + 1);
     } on Exception {
       return PostpicturesFailure(
           movies: state.movies,
@@ -50,20 +53,16 @@ class PostpicturesBloc extends Bloc<PostpicturesEvent, PostpicturesState> {
     }
   }
 
-  Future<List<Movie>> _fetchPosts({int page}) async {
+  Future<List<Movie>> _fetchMoviesOfAPage({int page}) async {
     // int limit = 20, fixed by themoviedb API
     final response = await httpClient.get(
       "http://api.themoviedb.org/3/movie/popular?page=$page&api_key=$apiKey",
     );
     if (response.statusCode == 200) {
       // TODO: Check this step
-      final data = json.decode(response.body) as List;
-      print("Data json.decode");
-      print(data);
+      final data = json.decode(response.body)["results"] as List;
       return data.map((dynamic rawPost) {
-        print("Raw post");
-        print(rawPost);
-        return Movie(rawPost);
+        return Movie.fromJson(rawPost);
       }).toList();
     }
     throw Exception('Error fetching posts');
